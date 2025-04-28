@@ -40,17 +40,17 @@ private fun performSingleScan() {
     if (!isScanning.value) return
     
     try {
-        // Set waiting flag before starting scan
+        // set waiting flag before starting scan
         waitingForScanResults = true
         
-        // Set timeout for this scan (3 seconds)
+        // set timeout for this scan (3 seconds)
         handler.postDelayed(scanTimeoutRunnable, 3000)
         
-        // Start the scan
+        // start the scan
         val success = wifiManager.startScan()
         
         if (!success) {
-            // If scan fails to start, manually trigger timeout
+            // manually trigger the timeout in case of a failed scan
             handler.postDelayed({
                 if (waitingForScanResults) {
                     scanTimeoutRunnable.run()
@@ -58,7 +58,7 @@ private fun performSingleScan() {
             }, 500)
         }
     } catch (e: Exception) {
-        // Error handling...
+        // error handling...
     }
 }
 ```
